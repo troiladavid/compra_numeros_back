@@ -3,8 +3,8 @@ const { google } = require('googleapis');
 const app = express();
 app.use(express.json());
 
-const API_KEY = 'YOUR_API_KEY';
-const spreadsheetId = 'YOUR_SPREADSHEET_ID';
+const API_KEY = 'AIzaSyCjzUNVtojg9mcK8apWjLDIBj5SGJaSVKU';
+const spreadsheetId = '1chZeMpf-pNRqBbUr5aJFJ7WuDnBSrDyMo4FkOMDEBBg';
 
 // Function to store selected numbers in Google Sheet
 async function storeInGoogleSheet(numbers) {
