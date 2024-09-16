@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { google } = require('googleapis');
 const bodyParser = require('body-parser');
+const OAuth2 = google.auth.OAuth2;
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,9 +16,22 @@ app.use(cors({
 app.use(bodyParser.json());
 
 // Google Sheets setup
-const API_KEY = 'AIzaSyCjzUNVtojg9mcK8apWjLDIBj5SGJaSVKU';
+const CLIENT_ID = '586285063616-e12779qje758bkv5jca8n8nfa3ar362i.apps.googleusercontent.com';
+const CLIENT_SECRET = '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';
+const REDIRECT_URI = 'http://localhost:3000/oauth2callback';  // Usually something like "http://localhost:3000/oauth2callback"
+const REFRESH_TOKEN = 'https://oauth2.googleapis.com/token';
+
+const oauth2Client = new OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET,
+    REDIRECT_URI
+);
+
+oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+
+const sheets = google.sheets({ version: 'v4', auth: oauth2Client });
+
 const SPREADSHEET_ID = '1chZeMpf-pNRqBbUr5aJFJ7WuDnBSrDyMo4FkOMDEBBg';
-const sheets = google.sheets({ version: 'v4', auth: API_KEY });
 // Route to handle form submissions
 app.post('/submit', async (req, res) => {
     const { selectedNumbers } = req.body;
@@ -35,7 +49,6 @@ app.post('/submit', async (req, res) => {
             resource: {
                 values: selectedNumbers.map(number => [number]),  // Each number in a new row
             },
-            auth: API_KEY,  // Use API Key for authorization
         });
 
         res.status(200).json({ message: 'Numbers stored successfully!' });
