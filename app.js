@@ -15,9 +15,9 @@ app.use(cors({
 app.use(bodyParser.json());
 
 // Google Sheets setup
-const sheets = google.sheets('v4');
 const API_KEY = 'AIzaSyCjzUNVtojg9mcK8apWjLDIBj5SGJaSVKU';
 const SPREADSHEET_ID = '1chZeMpf-pNRqBbUr5aJFJ7WuDnBSrDyMo4FkOMDEBBg';
+const sheets = google.sheets('v4', auth: API_KEY);
 
 // Route to handle form submissions
 app.post('/submit', async (req, res) => {
