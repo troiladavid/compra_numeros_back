@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 // Google Sheets setup
 const sheets = google.sheets('v4');
 const API_KEY = 'AIzaSyCjzUNVtojg9mcK8apWjLDIBj5SGJaSVKU';
-const spreadsheetId = '1chZeMpf-pNRqBbUr5aJFJ7WuDnBSrDyMo4FkOMDEBBg';
+const SPREADSHEET_ID = '1chZeMpf-pNRqBbUr5aJFJ7WuDnBSrDyMo4FkOMDEBBg';
 
 // Route to handle form submissions
 app.post('/submit', async (req, res) => {
